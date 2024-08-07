@@ -1,11 +1,16 @@
 import React from 'react'
-import ForgotComponent from "./pages/forgot"
-import LoginComponetn from "./pages/login"
+import { Routes, Route } from 'react-router-dom'
+import ForgotComponent from "./pages/forgot";
+import LoginComponent from "./pages/login";
+import "./index.css";
 
 function App() {
   return (
-    <div>
-      
+    <div className=''>
+      <Routes>
+        <Route path='/' element={<LoginComponent />} />
+        <Route path='/forgot' element={<ForgotComponent />} />
+      </Routes>
     </div>
   )
 }
