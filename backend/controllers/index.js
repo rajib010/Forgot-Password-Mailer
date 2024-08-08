@@ -1,8 +1,10 @@
 import bcrypt from 'bcryptjs'
-import { User } from '../models/index.js';
+import  User  from '../models/index.js';
 
 const registerUser = async function (req, res) {
     const { userName, email, password } = req.body;
+    console.log(userName);
+    
     try {
         const oldUser = await User.findOne({ email });
         if (oldUser) {
@@ -48,8 +50,5 @@ const loginUser = async function (req, res) {
         return res.status(400).json({ message: 'User not found' });
     }
 }
-
-
-
 
 export { registerUser, loginUser }
