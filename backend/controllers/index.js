@@ -1,16 +1,17 @@
 import bcrypt from 'bcryptjs'
-import  User  from '../models/index.js';
+import User from '../models/index.js';
+import { reqPasswordReset, resetPassword } from '../middleware/handleReset.js';
 
 const registerUser = async function (req, res) {
     const { userName, email, password } = req.body;
     console.log(userName);
-    
+
     try {
         const oldUser = await User.findOne({ email });
         if (oldUser) {
             return res.status(409).json({ message: 'User already exists' });
         }
-        const hashPassword = await bcrypt.hash(password, 10); 
+        const hashPassword = await bcrypt.hash(password, 10);
 
         const newUser = await User.create({
             userName,
@@ -51,4 +52,28 @@ const loginUser = async function (req, res) {
     }
 }
 
-export { registerUser, loginUser }
+const forgotPassword = async function (req, res) {
+    const { email } = req.body;
+    try {
+        await reqPasswordReset(email);
+        res.send("Password reset email send");
+
+    } catch (error) {
+        console.log("Error in fetching email", error);
+        res.status(400).send(error.message)
+    }
+}
+
+
+const resetPassword = async function (req, res) {
+    const { token } = req.params;
+    const { newPassword } = req.body;
+    try {
+        resetPassword(token, newPassword);
+        return res.send("Password has been reset")
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
+export { registerUser, loginUser, forgotPassword, resetPassword }
