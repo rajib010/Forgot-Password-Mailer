@@ -32,4 +32,4 @@ const sendResetEmail = async function (userName, resetToken) {
 }
 
 
-export default { transporter, sendResetEmail, generateResetToken }
+export { transporter, sendResetEmail, generateResetToken }

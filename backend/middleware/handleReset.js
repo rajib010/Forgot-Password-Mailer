@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import User from '../models';
+import User from '../models/index.js';
 import { generateResetToken, sendResetEmail } from './nodeMailer.js'
 
 const reqPasswordReset = async function (email) {
@@ -16,7 +16,7 @@ const reqPasswordReset = async function (email) {
 }
 
 
-const resetPassword = async function (token, newPassword) {
+const rstPassword = async function (token, newPassword) {
     const user = await User.findOne({
         resetToken: token,
         resetTokenExpires: { $gt: Date.now() }
@@ -30,4 +30,4 @@ const resetPassword = async function (token, newPassword) {
     user.resetTokenExpires = undefined;
     await user.save();
 }
-export { reqPasswordReset, resetPassword }
+export { reqPasswordReset, rstPassword }

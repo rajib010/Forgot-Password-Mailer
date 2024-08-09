@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 import User from '../models/index.js';
-import { reqPasswordReset, resetPassword } from '../middleware/handleReset.js';
+import { reqPasswordReset, rstPassword } from '../middleware/handleReset.js';
 
 const registerUser = async function (req, res) {
     const { userName, email, password } = req.body;
