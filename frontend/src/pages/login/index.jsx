@@ -21,7 +21,7 @@ function index() {
         onChange={(e)=>setEmail(e.target.value)} />
         <input type="password" className='max-w-md h-10 p-5 rounded-md' placeholder='*****' value={password}
         onChange={(e)=>setPassword(e.target.value)}/>
-        <p className='text-sm m-auto text-white underline hover:text-yellow-500'><Link to='/forgot'>Forgot Password?</Link></p>
+        <p className='text-sm m-auto text-white underline hover:text-yellow-500'><Link to='/forgot-password'>Forgot Password?</Link></p>
         <button type='submit' className='border border-collapse p-2 rounded-md bg-blue-800 text-white' >Login</button>
       </form>
 

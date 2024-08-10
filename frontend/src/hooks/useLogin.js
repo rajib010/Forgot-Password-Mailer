@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 const useLogin = () => {
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate()
     const login = async (email, password) => {
         try {
             const res = await fetch("/api/user/login", {
@@ -19,10 +20,11 @@ const useLogin = () => {
             }
             const data = await res.json();
             console.log('User signed in successfully');
+            navigate("/home")
 
         } catch (e) {
             console.error('Error in login', e);
-            setError(e.message); 
+            setError(e.message);
         }
     };
 

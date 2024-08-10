@@ -56,23 +56,30 @@ const forgotPassword = async function (req, res) {
     const { email } = req.body;
     try {
         await reqPasswordReset(email);
-        res.send("Password reset email send");
+        return res.status(200).json({ message: 'Password reset email sent' })
 
     } catch (error) {
         console.log("Error in fetching email", error);
-        res.status(400).send(error.message)
+        return res.status(400).send(error.message)
     }
 }
 
-
 const resetPassword = async function (req, res) {
     const { token } = req.params;
-    const { newPassword } = req.body;
+
+    const { newPassword, confirmPassword } = req.body;
+    console.log('token',token);
+    console.log('passwords',newPassword,confirmPassword);
+    
+        
+    if (newPassword !== confirmPassword) {
+        return res.status(400).json({ message: 'password donot match' });
+    }
     try {
-        resetPassword(token, newPassword);
-        return res.send("Password has been reset")
+        await rstPassword(token, newPassword);
+        return res.status(200).json({ message: "Password has been reset" });
     } catch (error) {
-        return res.status(400).send(error.message)
+        return res.status(400).json({ message: error.message })
     }
 }
 
